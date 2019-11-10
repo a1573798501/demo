@@ -5,7 +5,7 @@ hello
 
 ## 命令
 
-####*git*命令
+#### *git*命令
 ```$xslt
 git init
 git status
