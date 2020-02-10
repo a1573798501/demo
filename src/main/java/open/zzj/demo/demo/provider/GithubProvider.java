@@ -30,7 +30,6 @@ public class GithubProvider {
                 .build();
         try (Response response = client.newCall(request).execute()) {
             String cachestr = response.body().string();
-//            System.out.println(cachestr);
             String token = cachestr.split("&")[0].split("=")[1];
 
             return token;
