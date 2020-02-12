@@ -23,15 +23,7 @@ public class PaginationDto {
 
 
 
-    public void setPagInation(Integer totalcount, Integer page, Integer size) {
-
-        Integer totalPage;
-
-        if(totalcount%size == 0){
-            totalPage = totalcount/size;
-        }else {
-            totalPage = totalcount/size + 1;
-        }
+    public void setPagInation(Integer totalPage, Integer page) {
 
 
         totalPages = totalPage;

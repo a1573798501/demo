@@ -2,7 +2,6 @@ package open.zzj.demo.demo.controller;
 
 
 import open.zzj.demo.demo.mapper.QuestionMapper;
-import open.zzj.demo.demo.mapper.UserMapper;
 import open.zzj.demo.demo.model.Question;
 import open.zzj.demo.demo.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +20,6 @@ public class PublishController {
 
     @Autowired
     private QuestionMapper questionMapper;
-    @Autowired
-    private UserMapper userMapper;
 
     @GetMapping("/publish")
     public String publish(){
@@ -58,24 +55,11 @@ public class PublishController {
             return "publish";
         }
 
-
-
-        User user = null;
-        Cookie[] cookies = request.getCookies();
-        for (Cookie cookie : cookies) {
-            if (cookie.getName().equals("token")) {
-                String token = cookie.getValue();
-                user = userMapper.findByToken(token);
-                if (user != null) {
-                    request.getSession().setAttribute("user", user);
-                }
-                break;
-            }
-        }
+        User user = (User) request.getSession().getAttribute("user");
 
         if (user == null){
             model.addAttribute("error","用户未登录");
-            return "publish";
+            return "redirect:/";
         }
 
         Question question = new Question();

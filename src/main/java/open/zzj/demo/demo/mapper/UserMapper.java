@@ -19,4 +19,12 @@ public interface UserMapper {
 
     @Select("SELECT * FROM USER WHERE id=#{id}")
     User findById(@Param("id") Integer creator_id);
+
+    @Select("SELECT * FROM USER where find_in_set(#{accountId},ACCOUNT_ID)")
+    User findByAccountId(@Param("accountId") Integer accountId);
+
+    @Insert("INSERT INTO USER (name,account_id,token,gmt_create,gmt_modified,avatar_url) values " +
+            "(#{name},#{accountId},#{token},#{gmtCreate},#{gmtModified},#{avatarUrl})")
+    void updateUser(User user);
+
 }
