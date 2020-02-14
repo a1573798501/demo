@@ -5,6 +5,7 @@ import open.zzj.demo.demo.dto.PaginationDto;
 import open.zzj.demo.demo.dto.QuestionDto;
 import open.zzj.demo.demo.exception.CustomizeErrorCode;
 import open.zzj.demo.demo.exception.CustomizeException;
+import open.zzj.demo.demo.mapper.QuestionExtensionMapper;
 import open.zzj.demo.demo.mapper.QuestionMapper;
 import open.zzj.demo.demo.mapper.UserMapper;
 import open.zzj.demo.demo.model.Question;
@@ -27,6 +28,9 @@ public class QuestionService {
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private QuestionExtensionMapper questionExtensionMapper;
 
     public PaginationDto list(Integer page, Integer size) {
 
@@ -130,6 +134,10 @@ public class QuestionService {
         if (question.getId() == null){
             question.setGmtCreate(System.currentTimeMillis());
             question.setGmtModified(question.getGmtCreate());
+            question.setViewCount(0);
+            question.setLikeConunt(0);
+            question.setCommentCount(0);
+            questionMapper.insert(question);
         }else {
             Question questionUpdate = new Question();
             questionUpdate.setGmtModified(System.currentTimeMillis());
@@ -140,11 +148,18 @@ public class QuestionService {
             questionExampleUpdate.createCriteria()
                     .andIdEqualTo(question.getId());
             int update = questionMapper.updateByExampleSelective(questionUpdate,questionExampleUpdate);
-            System.out.println("update" + update);
             if (update != 1){
                 throw new CustomizeException(CustomizeErrorCode.QUSTION_NOT_FOUND);
             }
         }
+
+    }
+
+    public void incView(Integer id) {
+        Question questionUpdate = new Question();
+        questionUpdate.setId(id);
+        questionUpdate.setViewCount(1);
+        questionExtensionMapper.updateByExampleIncView(questionUpdate);
 
     }
 }

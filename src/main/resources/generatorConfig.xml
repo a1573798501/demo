@@ -35,10 +35,13 @@
         </javaClientGenerator>
 
 
-        <table tableName="user" domainObjectName="user" >
+        <table tableName="user" domainObjectName="User" >
         </table>
 
-        <table tableName="question" domainObjectName="question" >
+        <table tableName="question" domainObjectName="Question" >
+        </table>
+
+        <table tableName="comment" domainObjectName="Comment" >
         </table>
 
     </context>
