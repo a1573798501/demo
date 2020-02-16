@@ -72,7 +72,7 @@ public class QuestionService {
         return paginationDto;
     }
 
-    public PaginationDto list(Integer userId, Integer page, Integer size) {
+    public PaginationDto list(Long userId, Integer page, Integer size) {
 
         QuestionExample questionExampleUserCount = new QuestionExample();
         questionExampleUserCount.createCriteria()
@@ -116,7 +116,7 @@ public class QuestionService {
 
     }
 
-    public QuestionDto getById(Integer id) {
+    public QuestionDto getById(Long id) {
         Question question = questionMapper.selectByPrimaryKey(id);
         if(question == null){
             throw new CustomizeException(CustomizeErrorCode.QUSTION_NOT_FOUND);
@@ -155,11 +155,9 @@ public class QuestionService {
 
     }
 
-    public void incView(Integer id) {
+    public void incView(Long id) {
         Question questionUpdate = new Question();
         questionUpdate.setId(id);
-        questionUpdate.setViewCount(1);
         questionExtensionMapper.updateByExampleIncView(questionUpdate);
-
     }
 }

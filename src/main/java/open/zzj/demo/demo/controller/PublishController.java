@@ -29,7 +29,7 @@ public class PublishController {
 
 
     @GetMapping("/publish/{questionId}")
-    public String edit(@PathVariable(name = "questionId") Integer questionId,
+    public String edit(@PathVariable(name = "questionId") Long questionId,
                        Model model){
 
         QuestionDto question = questionService.getById(questionId);
@@ -45,7 +45,7 @@ public class PublishController {
             @RequestParam(value = "title" , required = false) String title,
             @RequestParam(value = "description" , required = false) String description,
             @RequestParam(value = "tag" , required = false) String tag,
-            @RequestParam(value = "questionId", required = false) Integer questionId,
+            @RequestParam(value = "questionId", required = false) Long questionId,
             HttpServletRequest request,
             Model model
 //            @RequestParam("CREATOR_ID") String CREATOR_ID

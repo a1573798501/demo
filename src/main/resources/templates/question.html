@@ -2,36 +2,39 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title th:text="${question.title}"></title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" href="/css/bootstrap-theme.min.css"/>
     <link rel="stylesheet" href="/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="/css/demo.css"/>
     <script src="/js/jquery-3.4.1.min.js"></script>
     <script src="/js/bootstrap.min.js" type="application/javascript"></script>
+    <script src="/js/community.js" type="application/javascript"></script>
 </head>
 <body>
 
 <div th:insert="navigation :: navigation"></div>
 
-<div class="container-fluid main profile"  style="margin: 30px;
-            background-color: white" >
+<div class="container-fluid main profile" style="margin: 30px;
+            background-color: white">
     <div class="row">
         <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
-            <h3>
-                <span th:text="${question.title}"></span>
-            </h3>
 
-            <span class="text-desc">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <h3>
+                    <span th:text="${question.title}"></span>
+                </h3>
+
+                <span class="text-desc">
                   发布人：  <span th:text="${question.user.name}"></span> |
                 • 阅读数：  <span th:text="${question.getViewCount()}"></span> |
-                • 发布时间：<span th:text="${#dates.format(question.gmtCreate,'dd MMMM yyyy')}" ></span>
+                • 发布时间：<span th:text="${#dates.format(question.gmtCreate,'dd MMMM yyyy')}"></span>
             </span>
 
-            <hr >
+                <hr>
 
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" th:text="${question.description}"></div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" th:text="${question.description}"></div>
 
-            <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 
 
                 <a th:href="@{'/publish/' + ${question.id}}" class="community-menu" th:if="${session.user !=null &&
@@ -40,19 +43,13 @@
                     </span>
                     编辑
                 </a>
+            </div>
 
+            <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 
-        </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="comment_section">
 
-
-
-
-
-        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12" >
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" >
-                <h4>发起人</h4>
-
-                <div class="media" >
+                <div class="media">
                     <div class="media-left">
                         <a href="#">
                             <img class="media-object-demo img-rounded"
@@ -60,23 +57,52 @@
                         </a>
                     </div>
 
-                <div class="media-body">
-                    <h5 class="media-heading" >
-                        <span th:text="${question.user.name}"> </span>
-                    </h5>
+                    <div class="media-body">
+                        <h5 class="media-heading">
+                            <span th:text="${question.user.name}"> </span>
+                        </h5>
+                    </div>
+
+                    <input type="hidden" id ="question_id" th:value="${question.id}">
+
+                    <textarea id="comment_content" class="form-control comment" rows="6"></textarea>
+                    <button type="button" class="btn btn-success btn-comment" onclick="postComment()">回复</button>
                 </div>
-
             </div>
 
 
-            <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" >
-                <h4>相关帖子</h4>
-            </div>
         </div>
 
 
+        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <h4>发起人</h4>
+
+                <div class="media">
+                    <div class="media-left">
+                        <a href="#">
+                            <img class="media-object-demo img-rounded"
+                                 th:src="${question.user.avatarUrl}">
+                        </a>
+                    </div>
+
+                    <div class="media-body">
+                        <h5 class="media-heading">
+                            <span th:text="${question.user.name}"> </span>
+                        </h5>
+                    </div>
+
+                </div>
+
+
+                <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <h4>相关帖子</h4>
+                </div>
+            </div>
+
+
+        </div>
     </div>
-</div>
 </body>
 </html>
