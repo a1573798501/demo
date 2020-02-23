@@ -11,9 +11,9 @@
         <plugin type = "org.mybatis.generator.plugins.RowBoundsPlugin">        </plugin>
 
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://192.168.72.128:3306/demos"
-                        userId="zzj"
-                        password="123456">
+                        connectionURL="jdbc:mysql://1a1573798501.hk10-125.lfeee.top:3306/a0222183154?serverTimezone=UTC"
+                        userId="a0222183154"
+                        password="5b5e73d1">
         </jdbcConnection>
         <!--                        connectionURL="jdbc:mysql://192.168.72.128:3306/demos?useUnicode=true&characterEncoding=utf8"-->
 

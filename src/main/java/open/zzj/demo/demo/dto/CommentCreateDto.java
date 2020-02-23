@@ -4,7 +4,7 @@ package open.zzj.demo.demo.dto;
 import lombok.Data;
 
 @Data
-public class CommetnDto {
+public class CommentCreateDto {
 
     private Long parentId;
     private String  content;

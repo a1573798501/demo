@@ -11,13 +11,16 @@ import open.zzj.demo.demo.mapper.UserMapper;
 import open.zzj.demo.demo.model.Question;
 import open.zzj.demo.demo.model.QuestionExample;
 import open.zzj.demo.demo.model.User;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class QuestionService {
@@ -32,7 +35,13 @@ public class QuestionService {
     @Autowired
     private QuestionExtensionMapper questionExtensionMapper;
 
-    public PaginationDto list(Integer page, Integer size) {
+    public PaginationDto list(String search, Integer page, Integer size) {
+
+
+        if (StringUtils.isNotBlank(search)){
+            String[] tags = StringUtils.split(search, " ");
+            search = Arrays.stream(tags).collect(Collectors.joining("|"));
+        }
 
 
         QuestionExample questionExample = new QuestionExample();

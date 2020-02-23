@@ -2,13 +2,23 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>西门军未来科技有限公司</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" href="css/bootstrap-theme.min.css"/>
     <link rel="stylesheet" href="css/bootstrap.min.css"/>
     <link rel="stylesheet" href="css/demo.css"/>
     <script src="/js/jquery-3.4.1.min.js"></script>
     <script src="js/bootstrap.min.js" type="application/javascript"></script>
+
 </head>
+<script type="application/javascript">
+    window.onload = function () {
+        var closeable = window.localStorage.getItem("closeable");
+        if (closeable == "true") {
+            window.close();
+            window.localStorage.removeItem("closeable");
+        }
+    }
+</script>
 <body>
 
 <div th:insert="navigation :: navigation"></div>
@@ -31,7 +41,7 @@
                     </a>
                 </div>
                 <div class="media-body">
-                    <h4 class="media-heading" >
+                    <h4 class="media-heading">
                         <a th:href="@{'/question/'+ ${question.id} }"
                            th:text="${question.title}"> </a>
                     </h4>
@@ -57,9 +67,10 @@
                             <span aria-hidden="true">&lt;</span>
                         </a>
                     </li>
-                    <li th:each="page : ${pagination.pages}" th:class="${pagination.currentPage == page}? 'active' : ''">
+                    <li th:each="page : ${pagination.pages}"
+                        th:class="${pagination.currentPage == page}? 'active' : ''">
                         <a th:href="@{/(page=${page})}"
-                           th:text="${page}" ></a>
+                           th:text="${page}"></a>
                     </li>
                     <li th:if="${pagination.showNextPage}">
                         <a th:href="@{/(page=${pagination.currentPage + 1})}" aria-label="NextPage">
