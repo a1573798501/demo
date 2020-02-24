@@ -3,7 +3,7 @@ package open.zzj.demo.demo.dto;
 import lombok.Data;
 import open.zzj.demo.demo.model.User;
 
-import javax.jnlp.UnavailableServiceException;
+
 
 @Data
 public class CommentDto {
